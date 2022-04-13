@@ -4,27 +4,47 @@
       <Label text="Home"/>
     </ActionBar>
 
-    <GridLayout>
-      <Label class="info">
-        <FormattedString>
-          <Span class="fas" text.decode="&#xf135; "/>
-          <Span :text="message"/>
-        </FormattedString>
-      </Label>
-    </GridLayout>
+    <StackLayout>
+      <Button text="first" @tap="goFirst" />
+      <Button text="first no history" @tap="goFirstNoHistory" />
+      <Button text="second" @tap="goSecond" />
+      <Frame id="subFrame" >
+        <Page>
+
+        </Page>
+      </Frame>
+
+    </StackLayout>
   </Page>
 </template>
 
 <script lang="ts">
   import Vue from "nativescript-vue";
+import First from "./First.vue";
+import Second from "./Second.vue";
 
   export default Vue.extend({
-    computed: {
-      message() {
-        return "Blank {N}-Vue app";
-      }
-    }
-  });
+    methods: {
+      goFirst() {
+        this.$navigateTo(First, {
+          clearHistory: false,
+          frame: 'subFrame'
+        });
+      },
+      goFirstNoHistory() {
+        this.$navigateTo(First, {
+          clearHistory: true,
+          frame: 'subFrame'
+        });
+      },
+      goSecond() {
+        this.$navigateTo(Second, {
+          clearHistory: false,
+          frame: 'subFrame'
+        });
+      },
+    },
+});
 </script>
 
 <style scoped lang="scss">
